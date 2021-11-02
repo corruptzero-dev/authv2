@@ -9,7 +9,7 @@ public class SHA1 {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-1");
             digest.reset();
-            digest.update(val.getBytes("utf8"));
+            digest.update(val.getBytes(StandardCharsets.UTF_8));
             sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
         } catch (Exception e){
             e.printStackTrace();
