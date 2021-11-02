@@ -36,6 +36,7 @@ class AuthImpl extends Auth {
             init();
         } else {
             serv.register(login,password);
+            new AuthImpl();
         }
     }
 
