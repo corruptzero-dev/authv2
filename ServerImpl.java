@@ -1,6 +1,5 @@
 package task;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 class ServerImpl extends Server {
@@ -18,17 +17,16 @@ class ServerImpl extends Server {
     }
 
     @Override
-    String register(String login, String password) throws FileNotFoundException {
-        password = Integer.toString(password.hashCode());
+    String register(String login, String password){
+        password = SHA1.encrypt(password);
         Fw.writeToFile("users.txt", (login+":"+password+"\n"));
         data.put(login,password);
         System.out.println("Успешная регистрация! Войдите в аккаунт.\n");
-        new AuthImpl();
         return null;
     }
     @Override
     String login(String login, String password){
-        password = Integer.toString(password.hashCode());
+        password = SHA1.encrypt(password);
         String enc = Fw.getPasswd("users.txt", login);
         if ((enc!=null)) {
             if ((enc.equals(password))) {
